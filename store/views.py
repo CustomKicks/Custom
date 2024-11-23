@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django import forms
 
 
@@ -69,7 +69,72 @@ def register_user(request):
     else:
         return render(request, 'register.html', {'form':form})
     
-    
+
+# Login Details
+def update_user(request):
+	if request.user.is_authenticated:
+		current_user = User.objects.get(id=request.user.id)
+		user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+		if user_form.is_valid():
+			user_form.save()
+
+			login(request, current_user)
+			messages.success(request, "User Has Been Updated!!")
+			return redirect('home')
+		return render(request, "update_user.html", {'user_form':user_form})
+	else:
+		messages.success(request, "You Must Be Logged In To Access That Page!!")
+		return redirect('home')
+     
+# Update Password
+def update_password(request):
+	if request.user.is_authenticated:
+		current_user = request.user
+		# Did they fill out the form
+		if request.method  == 'POST':
+			form = ChangePasswordForm(current_user, request.POST)
+			# Is the form valid
+			if form.is_valid():
+				form.save()
+				messages.success(request, "Your Password Has Been Updated...")
+				login(request, current_user)
+				return redirect('update_user')
+			else:
+				for error in list(form.errors.values()):
+					messages.error(request, error)
+					return redirect('update_password')
+		else:
+			form = ChangePasswordForm(current_user)
+			return render(request, "update_password.html", {'form':form})
+	else:
+		messages.success(request, "You Must Be Logged In To View That Page...")
+		return redirect('home')
+      
+# User Profile
+def update_info(request):
+	if request.user.is_authenticated:
+		# Get Current User
+		current_user = Profile.objects.get(user__id=request.user.id)
+		# Get Current User's Shipping Info
+		#shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+		
+		# Get original User Form
+		form = UserInfoForm(request.POST or None, instance=current_user)
+		# Get User's Shipping Form
+		#shipping_form = ShippingForm(request.POST or None, instance=shipping_user)		
+		if form.is_valid(): #or shipping_form.is_valid()
+			# Save original form
+			form.save()
+			# Save shipping form
+			#shipping_form.save()
+
+			messages.success(request, "Your Info Has Been Updated!!")
+			return redirect('home')
+		return render(request, "update_info.html", {'form':form})#, 'shipping_form':shipping_form
+	else:
+		messages.success(request, "You Must Be Logged In To Access That Page!!")
+		return redirect('home')
 """
 def register_user(request):
 	form = SignUpForm()
@@ -118,7 +183,7 @@ def category(request, cat):
         return redirect('home')
 
 #test
-def all(request):
-    all = Category.objects.all()
+#def all(request):
+ #   all = Category.objects.all()
 
-    return render(request, 'all.html', {'all': all})
+#    return render(request, 'all.html', {'all': all})

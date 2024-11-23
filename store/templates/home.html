@@ -24,54 +24,45 @@
             
             {% for product in products %}
                 {% if product.is_sale %}
-
-                    <div class="col mb-4 ">
-                        <div class="card ">
+                    <div class="col mb-5 ">
+                        <div class="card h-100">
                             <a style="text-decoration: none; color: inherit; outline: none;" href="{% url 'product' product.id%}">
                                 <!-- On Sale-->
-                                <div class="btn bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                                    Sale
-                                </div>
-                                <!-- Product image-->
-                                <img class="card-img-top" src="{{ product.image.url}}" alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw- text-secondary text-start" style="width: 300pz; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
-                                            {{ product.name}}
-                                        </h5>
+                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="{{ product.image.url}}" alt="..." />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">{{ product.name}}</h5>
 
-                                        <!-- Product Sale
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        &nbsp;&nbsp;Sale!&nbsp;&nbsp;
-                                        <div class="bi-star-fill"></div>
-                                        </div>-->
+                                            <!-- Product Sale
+                                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                                <div class="bi-star-fill"></div>
+                                                &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                                                <div class="bi-star-fill"></div>
+                                                </div>-->
                                                 <br>
                                                 <!-- Product price-->
-                                        <b class="text-start">
-                                            R {{ product.sale_price}}
-                                        </b>
-                                        <!-- Product price Strike-->
-                                        &nbsp;
-                                        <i class="text-start">
-                                            <strike>R {{ product.price}}</strike>
-                                        </i> 
+                                            <b>
+                                                R {{ product.sale_price}}
+                                            </b>
+                                            <!-- Product price Strike-->
+                                            &nbsp;
+                                            <i>
+                                                <strike>
+                                                R {{ product.price}}
+                                                </strike>
+                                            </i>
+                                            
                                     </div>
                                 </div>
+                                <!-- Product actions-->
+                                
                             </a>
-
-                            <!-- Product actions
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" href="#">
-                                        View
-                                    </a>
-                                </div>
-                            </div>-->
-                            
                         </div>
+                            
                     </div>
                     
                     {% else %}
@@ -82,28 +73,20 @@
                                 <img class="card-img-top" src="{{ product.image.url}}" alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
-                                    <div class="text-left">
+                                    <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw text-secondary text-start" style="width: 300pz; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
-                                            {{ product.name}}
-                                        </h5>
+                                        <h5 class="fw-bolder">{{ product.name}}</h5>
                                         <!-- Product price-->
                                         <br>
-                                        <b class="text-start">
+                                        <b>
                                             R {{ product.price}}
                                         </b>
                                     </div>
                                 </div>
                             </a>
-                                <!-- Product actions
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto" href="#">
-                                            View
-                                        </a>
-                                    </div>
-                                </div>-->
-                        </div> 
+                                <!-- Product actions-->
+                                
+                            </div>   
                     </div>
                 {% endif %}
             {% endfor %}
