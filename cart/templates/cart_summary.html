@@ -15,22 +15,21 @@
 <div class="container">
 
   <br><br>
+   
+ 
+    {% for product in cart_products %}
   <div class="card mb-1" >
             <div class="row g-0">
                 <div class="col-md-8">
                     <div class="card-body">
                        
                         <h6 class="card-title"><b>Product Shipped From CustomKicks Store</b></h6>
-                        <p class="card-text">
-                            {{ product.description}}
-                        </p>
-                
+                        
                     </div>
                 </div>
             </div>
-        </div> 
- 
-    {% for product in cart_products %}
+        </div>
+
 <div class="card mb-1">
   <div class="row g-0">
     
@@ -148,6 +147,71 @@
 <br><br>
 
 </div>
+<script>
+// Update Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_update' %}',
+    data: {
+      product_id: $(this).data('index'),
+      product_qty: $('#select' + productid + ' option:selected').text(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+// Delete Item From Cart
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+    // grab the product id
+    //var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_delete' %}',
+    data: {
+      product_id: $(this).data('index'),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+
+
+
+</script>
+
 
 
 {% endblock %}
