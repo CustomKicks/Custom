@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +8,7 @@
         <meta name="author" content="" />
         <title>CustomKicks</title>
 
-        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/unicons.css"/>
+        
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static 'Group.png' %}" />
         <!-- Bootstrap icons-->
@@ -36,8 +35,9 @@
     </head>
     <body class="d-flex">
         
-        <nav class="navbar navbar-expand-lg navbar-white bg-clear">
-            <div class="container px-4 px-lg-5">
+        <nav class="navbar navbar-expand-lg navbar-white bg-white" >
+            <div class="container px-2 px-lg-5">
+                <img src="{% static 'assets/Group.png' %}" style="max-width: 35px; max-height: 35px; margin-top:5px" alt=""> &nbsp;&nbsp;
                 <a class="navbar-brand" href="{% url 'home' %}">Customkicks</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -47,13 +47,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link " aria-current="page" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link " aria-current="page" href="{% url 'search' %}">Search</a></li>
                         <!--
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>-->
-                            
-                        {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'payment_success' %}">Payments</a></li>
 
+                         <!-- Logged OIn User -->
+                        {% if user.is_authenticated %}
+                            <!-- User Profile data -->
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                            <!--<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>-->
                             <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,44 +66,53 @@
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="{% url 'category' 'Low' %}">Low Air Forces</a></li>
                                 <li><a class="dropdown-item" href="{% url 'category' 'Mid' %}">Mid Air Forces</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Unisex' %}">Unisex</a></li>
                             </ul>
                         </li>
                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Profile
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'update_info' %}">My Profile</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="{% url 'update_user'  %}">Update Login Info</a></li>
+                                    
+                                    <li><a class="dropdown-item" href="{% url 'logout'  %}">Logout</a></li>
+                                    
+                                </ul>
+                            </li>
+                            
+                        </li>
+
+                        {% else %}
+                            
+                            <!-- Logged Out User -->
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                             <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profile
+                                Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'update_user' %}">Update Login Details</a></li>
-                                
-                                <li><a class="dropdown-item" href="{% url 'update_password' %}">Update password</a></li>
-                                <li><a class="dropdown-item" href="{% url 'update_info'  %}">Update Profile Info</a></li>
-                                <li><a class="dropdown-item" href="{% url 'logout'  %}">Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Low' %}">Low Air Forces</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Mid' %}">Mid Air Forces</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category' 'Unisex' %}">Unisex</a></li>
                             </ul>
                         </li>
-                            
-                        {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                            <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
-                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'home' %}">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="{% url 'category' 'Low' %}">Low Air Forces</a></li>
-                                <li><a class="dropdown-item" href="{% url 'category' 'Mid' %}">Mid Air Forces</a></li>
-                            </ul>
-                        </li>
+                            
                         {% endif %}
 
-                        
+                       
                     </ul>
 
                     <form class="d-flex">
-                        <a href="{% url 'cart_summary' %}" class="btn btn-outline-light">
+                        <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">
@@ -129,7 +140,7 @@
         </main>
         
         <!-- Footer-->
-        <footer class="py-5 bg-secondary">
+        <footer class="py-4 bg-secondary">
             <div class="container">
                 <p class="m-0 text-center text-light">Copyright &copy; Customkicks 2024</p>
             </div>

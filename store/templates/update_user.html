@@ -1,33 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5">
-                <div class="text-center text-white">
+    <!-- Header-->
+    <header class="bg-dark py-5" ><!--style="background-image: url('{% static 'b.webp' %}'); background-size: cover; background-position: center;"-->
+        <div class="container px-4 px-lg-5 ">
+            <div class="text-center text-black">
                     <h1 class="display-4 fw-bolder">Update Login Details</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Update User Profile...</p>
-                </div>
+                    <p class="lead fw-normal text-red-50 mb-0">Update Your User Account</p>
             </div>
-        </header>
+        </div>
+    </header> 
 
-        <div class="container">
-        	<div class="row">
-        		
-        			<div class="col-md-6 offset-md-3">
+    <br>
+    <div class="  container border rounded rounded-3 border-white " >
+       <div class="row">
+            <div class="col-md-6 offset-md-3 container border rounded rounded-3 border-white  mb-3 shadow-lg p-3 mb-5"> 
+                <br/>
+                <form method="POST" action="{% url 'update_user' %}">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    <br/>
 
-        				<br/><br/>
-<form method="POST" action="{% url 'update_user' %}">
-    {% csrf_token %}
-    
-    {{ user_form.as_p }}
+                    <button type="submit" class="btn btn-secondary">
+                        Update Profile
+                    </button> 
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    <a href="{% url 'update_password' %}">Forgot Your Password?</a>
+                </form>
+
+               
+            </div>	
+        </div>
+    </div>
     <br/><br/>
-    <button type="submit" class="btn btn-secondary">
-      Update Profile
-    </button>
-    <a href="{% url 'update_password' %}" ">Update Password</a>
-</form>
-
-<br><br>
-
+        
 {% endblock %}

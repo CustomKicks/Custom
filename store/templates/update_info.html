@@ -1,54 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Update Info</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Update User Info...</p>
-                </div>
+    <!-- Header-->
+    <header class="bg-dark py-5" ><!--style="background-image: url('{% static 'b.webp' %}'); background-size: cover; background-position: center;"-->
+        <div class="container px-4 px-lg-5 ">
+            <div class="text-center text-black">
+                    <h1 class="display-4 fw-bolder">Update Profile Info</h1>
+                    <p class="lead fw-normal text-red-50 mb-0">Update Your Profile Info</p>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		
-        			<div class="col-md-6 offset-md-3">
-
-        				<br/><br/>
-                    <strong>Billing Information</strong>
-                    <br/><br/>
-<form method="POST" action="{% url 'update_info' %}">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
-    <br/><br/>
-    <strong>Shipping Information</strong>
-    <br/><br/>
-    
-    {{ shipping_form.as_p }}
-
-
-    <br/><br/>
-    <button type="submit" class="btn btn-secondary">
-      Update Profile
-    </button>
-</form>
-
-<br/><br/>
-
-
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-        			</div>
-        		
-        	</div>
         </div>
+    </header> 
 
+    <br>
+    <div class="  container border rounded rounded-3 border-white " >
+       <div class="row">
+            <div class="col-md-6 offset-md-3 container border rounded rounded-3 border-white  mb-3 shadow-lg p-3 mb-5"> 
+                <br/>
+                <form method="POST" action="{% url 'update_info' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br/>
+
+                    <button type="submit" class="btn btn-secondary">
+                        Update Profile
+                    </button> 
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    <a href="{% url 'update_password' %}">Forgot Your Password?</a>
+                </form>
+
+               
+            </div>	
+        </div>
+    </div>
+    <br/><br/>
+        
 {% endblock %}

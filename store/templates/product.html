@@ -17,7 +17,7 @@
                             {{ product.name}}
                         </h3>
                         <p class="card-text text-secondary">
-                            {{ product.smalldescription }}
+                            {{ product.small_description }}
                         </p>
                         <!-- Product Sale-->
                         {% if product.is_sale %}
@@ -84,10 +84,13 @@
                         </div>
 
                         
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="submit" value="{{ product.id }}" id="add-cart" class="btn col-md-9  " style="background-color: rgb(25, 178, 25); border-color: rgb(25, 178, 25);">
+                       
+                        <center>
+                            <button type="submit" value="{{ product.id }}" id="add-cart" class="btn col-md-9  " style="background-color: rgb(25, 178, 25); border-color: rgb(25, 178, 25);">
                             Add to cart
                         </button>
+                        </center>
+                        
                         
                     </div>
                 </div>
@@ -95,16 +98,16 @@
 
             <br><br>
 
-            <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded " >
+            <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded" >
                 <div class="row g-0">
                     <div class="col-md-10">
-                    <div class="card-body">
-                        <h6 class="card-title"><b>Description</b></h6>
-                        <p class="card-text">{{ product.description}}</p>
+                        <div class="card-body">
+                            <h6 class="card-title"><b>Description</b></h6>
+                            <p class="card-text">{{ product.description}}</p>
+                        </div>
                     </div>
-            </div>
-        </div>
-    </div>          
+                </div>
+            </div>          
 </div>
 
 
@@ -125,7 +128,7 @@
                 },
 
                 success: function(json){
-                    //console.log(json)
+                    console.log(json)
                     document.getElementById("cart_quantity").textContent = json.qty
                     location.reload();
                 },

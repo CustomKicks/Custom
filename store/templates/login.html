@@ -5,22 +5,24 @@
  
     <header class="bg-dark py-5" style="background-image: url('{% static 'nike.webp' %}'); background-size: cover; background-position: center;" >
         <div class="container px-4 px-lg-5">
-            <div class="text-center text-dark">
+            <div class="text-center text-black">
                 <h1 class="display-4 fw-bolder">Login</h1>
                 <p class="lead fw-normal text-red-50 mb-0">Login to your Account</p>
             </div>
         </div>
     </header> 
 
-        <br><br><br><br>
+        <br><br>
         
-    <div class="  container border rounded rounded-3 border-white  mb-3 shadow-lg p-3 mb-5" >
-        <div class="row">
-            <div class="col-md-6 offset-md-3 ">
+    <div class="  container " >
+        
+        <div class="row ">
+            <div class="col-md-6 offset-md-3 container border rounded rounded-3 border-white  mb-3 shadow-lg p-3 mb-5">
 
                 <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="form-group">
+                        
                         <input type="text" class="form-control" name="username" placeholder="Username"> 
                     </div>
                     <br><br>
@@ -29,7 +31,16 @@
                     </div>
                     <br/>
                     <button type="submit" class="btn btn-secondary">Login</button>
+                     &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;
+                    <a href="{% url 'update_password' %}">Forgot Your Password?</a>
                 </form>
+                <br>
+                <center>
+                    Don't have an account? <a href="{% url 'register' %}">Create Account!</a>
+                </center>
+                
             </div>	
         </div>
     </div>

@@ -2,7 +2,199 @@
 {% load static %}
 {% block content %}
 
+     
+        <!-- Header-->
+          <header class="bg-dark py-5" style="background-image: url('{% static 'home.webp' %}'); background-size: cover; background-position: center;">
+              <div class="container px-4 px-lg-5 ">
+                  <div class="text-center text-black">
+                      <h1 class="display-4 fw-bolder">Shopping Cart</h1>
+                      <p class="lead fw-normal text-red-50 mb-0">View your cart</p>
+                  </div>
+              </div>
+          </header>
+        <br/>
+        <div class="container">
+
+  
+
+        {% if cart_products %}
+        	{% for product in cart_products %}
+          <div class="card mb-1" >
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="card-body">
+                       
+                        <h6 class="card-title"><b>Product Shipped From CustomKicks Store</b></h6>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        	
+<div class="card mb-1">
+  <div class="row g-0">
+    <div class="col-md-2">
+       <a style="text-decoration: none; color: inherit; outline: none;" href="{% url 'product' product.id%}">
+        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+      </a>
+      
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <h5 class="card-title text-">{{ product.name }}</h5>
+        <p class="card-text text-secondary">
+            {{ product.small_description }}
+        </p>
         
+        <!--Products on sales will be here-->
+        {% if product.is_sale %}
+          <div class="btn bg-light text-dark position-absolute" style="top: 0.5rem; right: 0.5rem">
+            <h4>R{{ product.sale_price }}</h4>
+          </div>
+          <div class="btn bg-light text-dark position-absolute" style="top: 5.5rem; right: 0.5rem">
+           <b>In stock</b>
+            On Sale!!!
+          </div>
+          
+          
+
+        {% else %}
+            <div class="btn bg-light text-dark position-absolute" style="top: 0.5rem; right: 0.5rem">
+            <h4>R{{ product.price }}</h4>
+          </div>
+          <div class="btn bg-light text-dark position-absolute" style="top:  5.5rem; right: 0.5rem">
+           <b>In stock</b>
+          
+          </div>
+          
+            
+        {% endif %}
+            
+        <div class="row justify-content">
+          <div class="col-md-2">Quantity:</div>
+                <div class="col-md-2">
+                  <select class="form-select form-select-sm" id="select{{product.id}}">
+                    
+                    {% for key, value in quantities.items %}
+                        {% if key == product.id|slugify %}
+                    <option selected>{{ value }}</option>
+                        {% endif %}
+                    {% endfor %}
+                            
+
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+            </div>
+           
+            
+        
+            <center>
+              <a href="{% url 'home'%}" class="btn btn-secondary btn-sm">Home</a>
+        <button type="button" data-index="{{ product.id }}" class="btn btn-warning btn-sm update-cart">Update</button>
+        <button type="button" data-index="{{ product.id }}" class="btn btn-danger btn-sm delete-product" >Remove</button>
+            </center>
+        
+        
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+        	{% endfor %}
+            <div align="right">
+              <br><br>
+              <button class="btn btn-success btn-sm " ><h3>Total: R{{ totals }}</h3></button>
+            </div>
+            <br/>
+        	{% else %}
+          <br><br> 
+          <center>    
+                 <div class="card shadow-sm p-3  bg-white rounded" >
+
+                  <h4 class="card-title text-">
+              Your cart is empty... Let's go grab something from the store.
+            </h4> 
+                 </div>                             
+                                  
+          </center>
+          
+        	
+        	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        {% endif %}
+    	</div>
+
+      <script>
+// Update Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_update' %}',
+    data: {
+      product_id: $(this).data('index'),
+      product_qty: $('#select' + productid + ' option:selected').text(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        console.log(json)
+        document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+// Delete Item From Cart
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+    // grab the product id
+    //var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_delete' %}',
+    data: {
+      product_id: $(this).data('index'),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        console.log(json)
+        document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+</script>
+
+{% endblock %}
+
+
 <!-- Header-->
 <header class="bg-dark py-5" style="background-image: url('{% static 'home.webp' %}'); background-size: cover; background-position: center;">
     <div class="container px-4 px-lg-5 ">
@@ -12,8 +204,8 @@
         </div>
     </div>
 </header>
+<br>
 <div class="container">
-
   <br><br>
    
  
@@ -28,8 +220,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> 
+        {% if cart_products %}
+    {% for product in cart_products %}
 <div class="card mb-1">
   <div class="row g-0">
     
@@ -79,17 +272,13 @@
             </div>
 
            
-
+            
             <!-- Update button -->
-            <div class="col-md-3 col-sm-2">
-              <button type="button" data-index="{{ product.id }}" class="btn btn-light btn-sm update-cart">Save</button>
-            </div>
+            
 
             <!-- Remove button -->
-            <div class="col-md-3 col-sm-2">
-              <button type="button" data-index="{{ product.id }}" class="btn btn-light btn-sm delete-product">Remove</button>
-            </div>
-            
+           
+
 
 
 
@@ -108,7 +297,7 @@
             
             <!-- Quantity selector -->
             <div class="col-md-2 col-sm-4">
-              <select class="form-select form-select-sm" id="qty-cart">
+              <select class="form-select form-select-sm" id="select{{ product.id }}">
                 {% for key, value in quantities.items %}
                   {% if key == product.id|slugify %}
                     <option selected>{{ value }}</option>
@@ -121,20 +310,16 @@
                 <option value="5">5</option>
               </select>
             </div>
-
+            <!-- Update button -->
            
 
-            <!-- Update button -->
-            <div class="col-md-3 col-sm-2">
-              <button type="button" data-index="{{ product.id }}" class="btn btn-light btn-sm update-cart">Save</button>
-            </div>
-
-            <!-- Remove button -->
-            <div class="col-md-3 col-sm-2">
-              <button type="button" data-index="{{ product.id }}" class="btn btn-light btn-sm delete-product">Remove</button>
-            </div>
+            
           {% endif %}
           
+               <button type="button" data-index="{{ product.id }}" class="btn  btn-sm update-cart">Update</button>
+               <button type="button" data-index="{{ product.id }}" class="btn  btn-sm delete-product" >Remove</button>
+           
+            
           
           </div>
          
@@ -145,7 +330,7 @@
 </div>
 {% endfor %}
 <br><br>
-
+  {% endif %}
 </div>
 <script>
 // Update Cart
@@ -213,5 +398,67 @@ $(document).on('click', '.delete-product', function(e){
 </script>
 
 
+<script>
+// Update Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    var productid = $(this).data('index');
 
-{% endblock %}
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_update' %}',
+    data: {
+      product_id: $(this).data('index'),
+      product_qty: $('#select' + productid + ' option:selected').text(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+// Delete Item From Cart
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+    // grab the product id
+    //var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_delete' %}',
+    data: {
+      product_id: $(this).data('index'),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+
+
+
+</script>
