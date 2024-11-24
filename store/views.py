@@ -11,6 +11,9 @@ from django.utils.translation import  gettext as _
 from django.db.models import Q
 import json
 from cart.cart import Cart
+import random
+
+
 # home page Route/View
 def home(request):
     output = _("TEST")
@@ -173,7 +176,9 @@ def product(request, pk):
     # Query the DB table to get product id for each selected product
     product = Product.objects.get(id=pk)
     # pass the product to the product.html file to be viewed/shown
-    return render(request, 'product.html', {'product':product} )
+    products = Product.objects.all()[:4]
+    #products = Product.objects.order_by('?')[:4]
+    return render(request, 'product.html', {'product':product, 'products':products} )
 
 
 # Category page later will be used as a search filter

@@ -2,68 +2,35 @@
 {% load static %}
 {% block content %}
 
-<!-- Section-->            
-<div class="container px-4 px-lg-5 mt-5">   
-    <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded " >
-          
-        <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{{ product.image.url}}" class="img-fluid rounded-start" alt="...">
-                </div>
-
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            {{ product.name}}
-                        </h3>
-                        <p class="card-text text-secondary">
-                            {{ product.small_description }}
-                        </p>
-                        <!-- Product Sale-->
-                        {% if product.is_sale %}
-                            <div class="btn bg-danger text-white position-absolute" style="top: 0.5rem; right: 1rem">
-                                    On Sale!!!
-                            </div>
-
-                            <b>R {{ product.sale_price}}</b>
-
-                            <!-- Product price Strike-->
-                            &nbsp;
-                            <i >
-                                <strike>
-                                R {{ product.price}} 
-                                </strike>
-                            </i>
-                        <br><br>
-
-                        <b>In stock</b>
-                        promotional stuff
-                       
-                        {% else %}
-                        
-                        <b>R {{ product.price}}</b>
-                        
-                        
-                        
-                        <!--
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center">
-                                <a class="btn btn-outline-dark mt-auto" href="#">
-                                    View
-                                </a>
-                            </div>
-                        </div>-->
-
-                        <b>In stock</b>
-                        promotional stuff
-                        <br><br>
-                       
+     <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <div class="row gx-4 gx-lg-5 align-items-center">
                     
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ product.image.url}}" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1">SKU: BST-498</div>
+                        <h1 class="display-5 fw-bolder">{{ product.name}}</h1>
+                            
+                        {% if product.is_sale %}
+                        <div class="fs-5 mb-5">
+                            <span class="text-decoration-line-through">R {{ product.sale_price}} </span>
+                            <span>R {{ product.price}}</span>
+                        </div>
+                        {% else %}
+                            <div class="fs-5 mb-5">
+                            
+                            <span>R {{ product.price}}</span>
+                        </div>
                         {% endif %}
-
+                        <p class="lead">{{ product.small_description }}</p>
+                        <!-- <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />-->
+                            <button class="btn btn-outline-dark flex-shrink-0" type="submit"value="{{ product.id }}" id="add-cart">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                            <br><br>
                         <div class="row justify-content">
                             <div class="col-md-2">Quantity:</div>
-                            
                                 <div class="col-md-6">
                                     <div class="col-md-3 col-sm-1">
                                         <select class="form-select form-select-sm" id="qty-cart">
@@ -83,32 +50,131 @@
                             </div>
                         </div>
 
-                        
-                       
-                        <center>
-                            <button type="submit" value="{{ product.id }}" id="add-cart" class="btn col-md-9  " style="background-color: rgb(25, 178, 25); border-color: rgb(25, 178, 25);">
-                            Add to cart
-                        </button>
-                        </center>
-                        
-                        
                     </div>
+                    <br><br>
+
+                    <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="row g-0">
+        <div class="col-md-10">
+            <div class="card-body">
+                <h6 class="card-title"><b>Description</b></h6>
+                <p class="card-text" id="description" style="margin: 0; font-size: 14px; color: #333;">
+                    {{ product.description }}
+                </p>
+                <a href="#" id="see-more" 
+                   style="color: blue; cursor: pointer; text-decoration: underline;" 
+                   onclick="toggleDescription(event)">See more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const descriptionElement = document.getElementById("description");
+        const originalText = descriptionElement.textContent.trim();
+        const maxLength = 100; // Number of characters to show initially
+
+        if (originalText.length > maxLength) {
+            const truncatedText = originalText.substring(0, maxLength) + "...";
+            descriptionElement.textContent = truncatedText;
+            document.getElementById("see-more").style.display = "inline"; // Show "See more" link
+        } else {
+            document.getElementById("see-more").style.display = "none"; // Hide "See more" link if not needed
+        }
+
+        // Function to toggle between full and truncated text
+        window.toggleDescription = function (event) {
+            event.preventDefault(); // Prevent scrolling to the top
+            if (descriptionElement.textContent.endsWith("...")) {
+                descriptionElement.textContent = originalText; // Show full text
+                document.getElementById("see-more").textContent = "See less";
+            } else {
+                descriptionElement.textContent = originalText.substring(0, maxLength) + "..."; // Truncate text again
+                document.getElementById("see-more").textContent = "See more";
+            }
+        };
+    });
+</script>
+
+
                 </div>
-            </div>  
+                
+            </div>
 
-            <br><br>
+            
+        </section>
 
-            <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded" >
-                <div class="row g-0">
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <h6 class="card-title"><b>Description</b></h6>
-                            <p class="card-text">{{ product.description}}</p>
+        <!-- Related items section-->
+        <section class="py-5 bg-light">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">Related products</h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                    {% for product in products %}
+                    {% if product.is_sale %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ product.image.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product reviews-->
+                                    <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                                    <!-- Product price-->
+                                    <b>R {{ product.sale_price}}</b>
+
+                                    <!-- Product price Strike-->
+                                    &nbsp;
+                                    <i >
+                                        <strike>
+                                        R {{ product.price}} 
+                                        </strike>
+                                    </i>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            
+                                <button class="btn btn-outline-clear flex-shrink-0" type="submit"value="{{ product.id }}" id="add-cart">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                            
                         </div>
                     </div>
+                     {% else %}
+                     <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ product.image.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product reviews-->
+                                    
+                                    <!-- Product price-->
+                                    R {{ product.price}}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            
+                                <button class="btn btn-outline-clear flex-shrink-0" type="submit"value="{{ product.id }}" id="add-cart">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                                </button>
+                            
+                        </div>
+                    </div>
+                     {% endif %}
+                    {% endfor %}
                 </div>
-            </div>          
-</div>
+            </div>
+        </section>
 
 
     <script>
