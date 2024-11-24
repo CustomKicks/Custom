@@ -54,55 +54,22 @@
                     <br><br>
 
                     <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-    <div class="row g-0">
-        <div class="col-md-10">
-            <div class="card-body">
-                <h6 class="card-title"><b>Description</b></h6>
-                <p class="card-text" id="description" style="margin: 0; font-size: 14px; color: #333;">
-                    {{ product.description }}
-                </p>
-                <a href="#" id="see-more" 
-                   style="color: blue; cursor: pointer; text-decoration: underline;" 
-                   onclick="toggleDescription(event)">See more</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const descriptionElement = document.getElementById("description");
-        const originalText = descriptionElement.textContent.trim();
-        const maxLength = 100; // Number of characters to show initially
-
-        if (originalText.length > maxLength) {
-            const truncatedText = originalText.substring(0, maxLength) + "...";
-            descriptionElement.textContent = truncatedText;
-            document.getElementById("see-more").style.display = "inline"; // Show "See more" link
-        } else {
-            document.getElementById("see-more").style.display = "none"; // Hide "See more" link if not needed
-        }
-
-        // Function to toggle between full and truncated text
-        window.toggleDescription = function (event) {
-            event.preventDefault(); // Prevent scrolling to the top
-            if (descriptionElement.textContent.endsWith("...")) {
-                descriptionElement.textContent = originalText; // Show full text
-                document.getElementById("see-more").textContent = "See less";
-            } else {
-                descriptionElement.textContent = originalText.substring(0, maxLength) + "..."; // Truncate text again
-                document.getElementById("see-more").textContent = "See more";
-            }
-        };
-    });
-</script>
-
-
-                </div>
-                
-            </div>
-
-            
+                        <div class="row g-0">
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <h6 class="card-title"><b>Description</b></h6>
+                                    <p class="card-text" id="description" style="margin: 0; font-size: 14px; color: #333;">
+                                        {{ product.description }}
+                                    </p>
+                                    <a href="#" id="see-more" 
+                                    style="color: blue; cursor: pointer; text-decoration: underline;" 
+                                    onclick="toggleDescription(event)">See more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>            
         </section>
 
         <!-- Related items section-->
@@ -176,7 +143,6 @@
             </div>
         </section>
 
-
     <script>
 
         // Check if button pressed
@@ -205,6 +171,34 @@
             });
         })
         </script>
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const descriptionElement = document.getElementById("description");
+        const originalText = descriptionElement.textContent.trim();
+        const maxLength = 100; // Number of characters to show initially
+
+        if (originalText.length > maxLength) {
+            const truncatedText = originalText.substring(0, maxLength) + "...";
+            descriptionElement.textContent = truncatedText;
+            document.getElementById("see-more").style.display = "inline"; // Show "See more" link
+        } else {
+            document.getElementById("see-more").style.display = "none"; // Hide "See more" link if not needed
+        }
+
+        // Function to toggle between full and truncated text
+        window.toggleDescription = function (event) {
+            event.preventDefault(); // Prevent scrolling to the top
+            if (descriptionElement.textContent.endsWith("...")) {
+                descriptionElement.textContent = originalText; // Show full text
+                document.getElementById("see-more").textContent = "See less";
+            } else {
+                descriptionElement.textContent = originalText.substring(0, maxLength) + "..."; // Truncate text again
+                document.getElementById("see-more").textContent = "See more";
+            }
+        };
+    });
+</script>
+
 
 {% endblock %}
 
