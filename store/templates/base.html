@@ -90,6 +90,8 @@
                             
                             <!-- Logged Out User -->
                             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
                              <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,8 +105,7 @@
                                 <li><a class="dropdown-item" href="{% url 'category' 'Unisex' %}">Unisex</a></li>
                             </ul>
                         </li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                            
                             
                         {% endif %}
 
