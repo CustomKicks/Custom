@@ -13,18 +13,18 @@
     </header> 
 
     <br>
-    <div class="  container border rounded rounded-3 border-white " >
+    <div class="  container  " >
        <div class="row">
-            <div class="col-md-6 offset-md-3 container border rounded rounded-3 border-white  mb-3 shadow-lg p-3 mb-5"> 
-                <br/>
+            <div class="col-md-6 offset-md-3 px-4 px-lg-5 my-5 mb-3 shadow-sm p-3 mb-5 bg-white rounded"> 
+                
                 <strong>Billing Infomation</strong>
-                <br>
+                <br><br>
                 <form method="POST" action="{% url 'update_info' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <br/>
+                    <br/><br>
                     <strong>Billing Infomation</strong>
-                    <br>
+                    <br><br>
                    {{ shipping_form.as_p }} 
 
                     <button type="submit" class="btn btn-secondary">
