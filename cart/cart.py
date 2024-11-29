@@ -39,7 +39,7 @@ class Cart():
 
             # lets save carty to Model
             current_user.update(old_cart=str(carty))
-    
+    # Add a product to the cart 
     def add(self, product, quantity):   
         product_id = str(product.id)
         product_qty = str(quantity)
@@ -148,6 +148,7 @@ class Cart():
         for key, value in quantities.items():
             # Convert key string into into so we can do math
             key = int(key)
+            value = int(value)
             for product in products:
                 if product.id == key:
                     if product.is_sale:

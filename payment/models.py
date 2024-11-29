@@ -4,18 +4,20 @@ from store.models import Product
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver 
 import datetime
-
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 
 class ShippingAddress(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	shipping_full_name = models.CharField(max_length=255)
+	
 	shipping_email = models.CharField(max_length=255)
 	shipping_address1 = models.CharField(max_length=255)
-	shipping_address2 = models.CharField(max_length=255, null=True, blank=True)
+	shipping_address2 = models.CharField(max_length=255)
 	shipping_city = models.CharField(max_length=255)
-	shipping_province = models.CharField(max_length=255, null=True, blank=True)
-	shipping_zipcode = models.CharField(max_length=255, null=True, blank=True)
+	shipping_province = models.CharField(max_length=255)
+	shipping_zipcode = models.CharField(max_length=255)
 	shipping_country = models.CharField(max_length=255)
 
 

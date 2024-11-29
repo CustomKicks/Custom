@@ -18,8 +18,7 @@
   
 
         {% if cart_products %}
-        	{% for product in cart_products %}
-          <div class="card mb-1" >
+        <div class="card mb-1" >
             <div class="row g-0">
                 <div class="col-md-8">
                     <div class="card-body">
@@ -30,6 +29,8 @@
                 </div>
             </div>
         </div>
+        	{% for product in cart_products %}
+          
         	
 <div class="card mb-1">
   <div class="row g-0">
@@ -71,8 +72,8 @@
         {% endif %}
             
         <div class="row justify-content">
-          <div class="col-md-2">Quantity:</div>
-                <div class="col-md-2">
+          <div class="col-md-2">Qty:</div>
+                <div class="col-md-3">
                   <select class="form-select form-select-sm" id="select{{product.id}}">
                     
                     {% for key, value in quantities.items %}
@@ -93,11 +94,11 @@
            
             
         
-            <center>
-              <a href="{% url 'home'%}" class="btn btn-secondary btn-sm">Home</a>
+        <center>
+              
         <button type="button" data-index="{{ product.id }}" class="btn btn-warning btn-sm update-cart">Update</button>
         <button type="button" data-index="{{ product.id }}" class="btn btn-danger btn-sm delete-product" >Remove</button>
-            </center>
+        </center>
         
         
     
@@ -111,7 +112,8 @@
         	{% endfor %}
             <div align="right">
               <br><br>
-              <button class="btn btn-success btn-sm " ><h3>Total: R{{ totals }}</h3></button>
+              <h3>Total: R{{ totals }}</h3>
+              <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Checkout</a>
             </div>
             <br/>
         	{% else %}
@@ -130,7 +132,22 @@
         	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         {% endif %}
     	</div>
-
+ <style>
+            html, body {
+                height: 100%;  /* Ensure full height for viewport */
+            }
+            #page-content {
+                flex: 1 0 auto;  /* Grow to fill the available space */
+            }
+            footer {
+                flex-shrink: 0;  /* Prevent footer from shrinking */
+            }
+            .d-flex {
+                display: flex;
+                flex-direction: column;
+                min-height: 5vh;  /* Ensure the body stretches to the full viewport */
+            }
+        </style>
       <script>
 // Update Cart
 $(document).on('click', '.update-cart', function(e){

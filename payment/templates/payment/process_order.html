@@ -1,0 +1,103 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %} 
+  <!-- Header--> 
+  <header class="bg-dark py-5"> 
+    <div class="container px-4 px-lg-5 my-5"> 
+      <div class="text-center text-white"> 
+        <h1 class="display-4 fw-bolder">Process Order</h1> 
+        <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p> 
+      </div> 
+    </div> 
+  </header> 
+
+  <br/><br/> 
+
+  <div class="container"> 
+    <div class="row"> 
+      <!-- Blog entries--> 
+      <div class="col-lg-8"> 
+        <!-- Featured blog post--> 
+        <div class="card mb-4"> 
+          <div class="card-header"> 
+            <strong>
+              Shipping Info
+            </strong>
+          </div> 
+
+          <div class="card-body"> 
+            Name: {{ shipping_info.shipping_full_name }} <br> 
+            Email: {{ shipping_info.shipping_email }}<br> 
+            Address 1: {{ shipping_info.shipping_address1}}<br> 
+            Address 2: {{ shipping_info.shipping_address2}}<br> 
+            City: {{ shipping_info.shipping_city}}<br> 
+            Province: {{ shipping_info.shipping_province}}<br> 
+            Zipcode: {{ shipping_info.shipping_zipcode}}<br> 
+            Country: {{ shipping_info.shipping_country}} <br><br> 
+            <a href="{% url 'checkout' %}" class="btn btn-sm btn-outline-secondary"> Update Shipping </a> 
+          </div> 
+        </div> 
+
+        <div class="card mb-4"> 
+          <div class="card-header">
+            <strong>
+              Card Details
+            </strong>
+            
+          </div> 
+          <div class="card-body">
+            <form method="POST"action="{% url 'process_ordeer' %}">
+              {% csrf_token %}
+              {{ billing_form.as_p }} 
+            </form> 
+            
+          </div> 
+        </div> 
+
+        <!-- Nested row for non-featured blog posts--> 
+        <!-- Pagination--> 
+      </div> 
+
+      <!-- Side widgets--> 
+      <div class="col-lg-4"> 
+        <!-- Search widget--> 
+        <div class="card mb-4"> 
+          <div class="card-header">
+            <strong>
+              Order Summary
+            </strong>
+            
+          </div> 
+
+          <div class="card-body"> 
+            {% for product in cart_products %} 
+              {{ product.name }}: 
+              {% if product.is_sale %} 
+                R{{ product.sale_price }} 
+              {% else %} 
+                R{{ product.price }} 
+              {% endif %} 
+              <br/> 
+              <small>Quantity: 
+                {% for key, value in quantities.items %} 
+                  {% if key == product.id|slugify %} 
+                    {{ value }} 
+                  {% endif %} 
+                {% endfor %} 
+              </small> 
+              <br/><br/> 
+            {% endfor %} 
+            Total: R{{ totals }} <br/><br/> 
+            <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-outline-secondary">Update Items</a> 
+          </div> 
+        </div> 
+
+        
+        <button type="submit" class="btn btn-secondary"> Pay Now! </button> 
+        <!-- Side widget--> 
+        <br><br><br>
+      </div> 
+    </div> 
+  </div> 
+
+{% endblock %}

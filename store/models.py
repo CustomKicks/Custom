@@ -57,21 +57,29 @@ class Customer(models.Model):
 # Producys 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    price = models.IntegerField()
+    price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
     size = models.IntegerField(default=4)
     category = models.ManyToManyField(Category)
     small_description = models.CharField(max_length=100000, default='', blank=True, null=True)
     description = models.CharField(max_length=100000, default='', blank=True, null=True)
-    image = models.ImageField(upload_to='uploads/product/')
+    image = models.ImageField(upload_to='uploads/product/'  ,default=datetime.datetime.today)
+    image1 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image3 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image4 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image5 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image6 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image7 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
+    image8 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
 
     # add On Sale stuff
     is_sale = models.BooleanField(default=False)
-    sale_price = models.DecimalField(default=0, decimal_places=2 ,max_digits=6)
+    sale_price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
 
     def __str__(self):
         return self.name
 
 class Order(models.Model):
+   
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  
     quantity = models.IntegerField(default=1)

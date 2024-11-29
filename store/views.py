@@ -14,13 +14,16 @@ from django.db.models import Q
 import json
 from cart.cart import Cart
 import random
+from django.contrib.auth.decorators import login_required
 
 
 
 # home page Route/View
 def home(request):
     output = _("TEST")
-    products = Product.objects.all()
+    #products = Product.objects.all()
+    products = Product.objects.order_by('?')#[:4]
+    #products = Product.objects.all()[:12]
     return render(request, 'home.html', {'products':products})
 
 
@@ -83,7 +86,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ('Username & Account Created, Fill Out User Info. '))
-            return redirect('update_info')
+            return redirect('home')
         
         else:
             messages.success(request, ('Registration Not Successfully. Try Again!!'))
@@ -93,6 +96,7 @@ def register_user(request):
 
 
 # update User Account
+@login_required(login_url='login')
 def update_user(request):
 	if request.user.is_authenticated:
         # What/Which user is authenticated/
@@ -112,6 +116,7 @@ def update_user(request):
 		return redirect('home')
      
 # update User Account
+@login_required(login_url='login')
 def update_password(request):
     # Authenticate User
     if request.user.is_authenticated:
@@ -136,7 +141,9 @@ def update_password(request):
         return redirect('home')    
 
 # User Info
+@login_required(login_url='login')
 def update_info(request):
+    
     if request.user.is_authenticated:
         # What/Which user is authenticated/
         current_user = Profile.objects.get(user__id=request.user.id)
@@ -181,8 +188,8 @@ def product(request, pk):
     # Query the DB table to get product id for each selected product
     product = Product.objects.get(id=pk)
     # pass the product to the product.html file to be viewed/shown
-    products = Product.objects.all()[:4]
-    #products = Product.objects.order_by('?')[:4]
+    #products = Product.objects.all()[:4]
+    products = Product.objects.order_by('?')[:4]
     return render(request, 'product.html', {'product':product, 'products':products} )
 
 
