@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     output = _("TEST")
     #products = Product.objects.all()
-    products = Product.objects.order_by('?')#[:4]
+    products = Product.objects.order_by('?')[:6]
     #products = Product.objects.all()[:12]
     return render(request, 'home.html', {'products':products})
 
