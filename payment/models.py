@@ -37,7 +37,7 @@ def create_shipping(sender, instance, created, **kwargs):
 # Automate the profile thing
 post_save.connect(create_shipping, sender=User)
 	
-
+# Inline Order Items
 class Order(models.Model):
 	# Foreign Key
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -57,7 +57,9 @@ class Order(models.Model):
 def set_shipped_date_on_update(sender, instance, **kwargs):
 	if instance.pk:
 		now = datetime.datetime.now()
+
 		obj = sender._default_manager.get(pk=instance.pk)
+
 		if instance.shipped and not obj.shipped:
 			instance.date_shipped = now
 
