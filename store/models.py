@@ -62,7 +62,7 @@ class Product(models.Model):
     category = models.ManyToManyField(Category)
     small_description = models.CharField(max_length=100000, default='', blank=True, null=True)
     description = models.CharField(max_length=100000, default='', blank=True, null=True)
-    image = models.ImageField(upload_to='uploads/product/'  ,default=datetime.datetime.today)
+    image = models.ImageField(upload_to='uploads/product/') 
     image1 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
     image3 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
     image4 = models.ImageField(upload_to='uploads/product/' ,default=datetime.datetime.today)
