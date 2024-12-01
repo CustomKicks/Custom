@@ -21,8 +21,8 @@ from django.contrib.auth.decorators import login_required
 # home page Route/View
 def home(request):
     output = _("TEST")
-    #products = Product.objects.all()
-    products = Product.objects.order_by('?')[:6]
+    products = Product.objects.all()
+    #products = Product.objects.order_by('?')[:6]
     #products = Product.objects.all()[:12]
     return render(request, 'home.html', {'products':products})
 
@@ -86,7 +86,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, ('Username & Account Created, Fill Out User Info. '))
-            return redirect('home')
+            return redirect('update_info')
         
         else:
             messages.success(request, ('Registration Not Successfully. Try Again!!'))
@@ -96,7 +96,7 @@ def register_user(request):
 
 
 # update User Account
-@login_required(login_url='login')
+
 def update_user(request):
 	if request.user.is_authenticated:
         # What/Which user is authenticated/
@@ -116,7 +116,6 @@ def update_user(request):
 		return redirect('home')
      
 # update User Account
-@login_required(login_url='login')
 def update_password(request):
     # Authenticate User
     if request.user.is_authenticated:
@@ -141,26 +140,30 @@ def update_password(request):
         return redirect('home')    
 
 # User Info
-@login_required(login_url='login')
+
 def update_info(request):
-    
-    if request.user.is_authenticated:
-        # What/Which user is authenticated/
-        current_user = Profile.objects.get(user__id=request.user.id)
-        shipping_user = ShippingAddress.objects.get(id=request.user.id)
-        # create form
-        form = UserInfoForm(request.POST or None, instance=current_user)
-        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
-        # Validate  the form and its content and login user
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Your info Has Been Updated!!")
-            return redirect('home')
-        return render(request, "update_info.html", {'form':form, 'shipping_form': shipping_form})#
-    else:
-        messages.success(request, "You Must Be Logged In To Access That Page!!")
-        return redirect('home')
-    #return render(request, "update_info.html", {})
+	if request.user.is_authenticated:
+		# Get Current User
+		current_user = Profile.objects.get(user__id=request.user.id)
+		# Get Current User's Shipping Info
+		shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+		
+		# Get original User Form
+		form = UserInfoForm(request.POST or None, instance=current_user)
+		# Get User's Shipping Form
+		shipping_form = ShippingForm(request.POST or None, instance=shipping_user)		
+		if form.is_valid() or shipping_form.is_valid():
+			# Save original form
+			form.save()
+			# Save shipping form
+			shipping_form.save()
+
+			messages.success(request, "Your Info Has Been Updated!!")
+			return redirect('home')
+		return render(request, "update_info.html", {'form':form, 'shipping_form':shipping_form})
+	else:
+		messages.success(request, "You Must Be Logged In To Access That Page!!")
+		return redirect('home')
     
 """
 def register_user(request):
