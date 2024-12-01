@@ -6,6 +6,7 @@ from django.contrib import messages
 from cart.cart import Cart
 from django.contrib.auth .models import User
 from store.models import Product, Profile
+import datetime
 #
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
@@ -166,4 +167,51 @@ def process_order(request):
 
 	else:
 		messages.success(request, ('Access Denied!'))
+		return redirect('home')
+
+
+
+#Dashboard 
+# Shipped
+def not_shipped_dash(request):
+	if request.user.is_authenticated and request.user.is_superuser:
+		orders = Order.objects.filter(shipped=False)
+		if request.POST:
+			status = request.POST['shipping_status']
+			num = request.POST['num']
+			# Get the order
+			order = Order.objects.filter(id=num)
+			# grab Date and time
+			now = datetime.datetime.now()
+			# update order
+			order.update(shipped=True, date_shipped=now)
+			# redirect
+			messages.success(request, "Shipping Status Updated")
+			return redirect('home')
+
+		return render(request, "payment/not_shipped_dash.html", {"orders":orders})
+	else:
+		messages.success(request, "Access Denied")
+		return redirect('home')
+
+def shipped_dash(request):
+	if request.user.is_authenticated and request.user.is_superuser:
+		orders = Order.objects.filter(shipped=True)
+		if request.POST:
+			status = request.POST['shipping_status']
+			num = request.POST['num']
+			# grab the order
+			order = Order.objects.filter(id=num)
+			# grab Date and time
+			now = datetime.datetime.now()
+			# update order
+			order.update(shipped=False)
+			# redirect
+			messages.success(request, "Shipping Status Updated")
+			return redirect('home')
+
+
+		return render(request, "payment/shipped_dash.html", {"orders":orders})
+	else:
+		messages.success(request, "Access Denied")
 		return redirect('home')

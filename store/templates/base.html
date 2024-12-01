@@ -57,6 +57,7 @@
                             <!-- User Profile data -->
                             <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'payment_success' %}"></a></li>
+                            
                             <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,11 +70,13 @@
                                 <li><a class="dropdown-item" href="{% url 'category' 'Mid' %}">Mid Air Forces</a></li>
                                 <li><a class="dropdown-item" href="{% url 'category' 'Unisex' %}">Unisex</a></li>
                             </ul>
-                        </li>
+                            </li>
+
+                            <!--Profile-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Profile
+                                    My Account
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{% url 'update_info' %}">My Profile</a></li>
@@ -84,6 +87,24 @@
                                     
                                 </ul>
                             </li>
+
+                            <!--Profile-->
+                            {% if user.is_superuser %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" 
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Orders
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'shipped_dash' %}">Shipped Orders</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="{% url 'not_shipped_dash'  %}">Not Shiped Orders</a></li>
+                                    
+                                    
+                                    
+                                </ul>
+                            </li>
+                            {% endif %}
                             
                         </li>
 
