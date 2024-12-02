@@ -12,6 +12,27 @@ def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
 
 
+
+def checkout(request):
+	# Get the cart
+	cart = Cart(request)
+	cart_products = cart.get_prods
+	quantities = cart.get_quants
+	totals = cart.cart_total()
+
+	if request.user.is_authenticated:
+		# Checkout as logged in user
+		# Shipping User
+		shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+		# Shipping Form
+		shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_form":shipping_form })
+	else:
+		# Checkout as guest
+		shipping_form = ShippingForm(request.POST or None)
+		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_form":shipping_form})
+
+'''
 def checkout(request):
 	cart = Cart(request)
 	cart_products = cart.get_prods
@@ -29,7 +50,7 @@ def checkout(request):
 		# Checkout as a guest
 		shipping_form = ShippingForm(request.POST or None)
 		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_form': shipping_form})
-
+'''
 
 def billing_info(request):
 	if request.POST:
@@ -225,10 +246,16 @@ def orders(request, pk):
 		order = Order.objects.get(id=pk)
 		# get order items 
 		items = OrderItem.objects.filter(order=pk)
-		return render(request, "payment/orders.html", {"orders":orders, 'items':items})
+		return render(request, "payment/orders.html", {"order":order, 'items':items})
 	
 	
 	
 	else:
 		messages.success(request, "Access Denied")
 		return redirect('home')
+
+
+
+
+
+

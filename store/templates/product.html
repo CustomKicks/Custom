@@ -12,8 +12,8 @@
                         
                     {% if product.is_sale %}
                     <div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through">R {{ product.sale_price}} </span>
                         <span>R {{ product.price}}</span>
+                        <span class="text-decoration-line-through">R {{ product.sale_price}} </span>
                     </div>
                     {% else %}
                         <div class="fs-5 mb-5">
@@ -97,7 +97,7 @@
                                     R{{ product.sale_price }}
                                     &nbsp;
                                     <strike>
-                                    R{{ product.price }}
+                                        R{{ product.price }}
                                     </strike>
                                 </div>
                             </div>
@@ -123,9 +123,10 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <h5 class="fw-bolder">
+                                        {{ product.name }}
+                                    </h5>
                                     <!-- Product price-->
-                                
                                     R{{ product.price }}
                                 </div>
                             </div>

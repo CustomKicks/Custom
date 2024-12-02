@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5" style="background-image: url('{% static 'we.webp' %}'); background-size: cover; background-position: center;">
+        <div class="container px-4 px-lg-5 ">
+            <div class="text-center text-black">
+                <h1 class="display-4 fw-bolder">None Shipped Orders</h1>
+                <p class="lead fw-normal text-red-50 mb-0">Order being proccessed</p>
+            </div>
+        </div>
+    </header> 
+
+    <div class="container">
+        	<div class="row">
+        		<center>
+        			<div class="col-8">
+        				<br/><br/>
+                        <h3>Un-Shipped Items</h3>
+                            <table class="table table-striped table-hover table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Customer Email</th>
+                                <th scope="col">Date Ordered</th>
+                                <th scope="col">Shipped</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in orders %}
+                                <tr>
+                                <td><a href="">{{ item.id }}</a></td>
+                                <td>R{{ item.amount_paid }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.date_ordered }}</td>
+                                <td>
+                                   
+
+
+                                </td>
+                                </tr>
+                                {% endfor %}
+                            
+                                
+                            </tbody>
+                            </table>
+
+
+
+<br/><br/>
+<br/><br/>
+        			</div>
+        		</center>
+        	</div>
+        </div>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
+    
+{% endblock %}
