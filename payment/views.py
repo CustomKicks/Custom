@@ -7,6 +7,7 @@ from cart.cart import Cart
 from django.contrib.auth .models import User
 from store.models import Product, Profile
 import datetime
+from django.contrib.auth.decorators import login_required
 #
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
@@ -52,6 +53,7 @@ def checkout(request):
 		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_form': shipping_form})
 '''
 
+@login_required(login_url='login')
 def billing_info(request):
 	if request.POST:
 
@@ -70,6 +72,7 @@ def billing_info(request):
 			return render(request, "payment/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
 		else:
 			billing_form = PaymentForm()
+			messages.error(request, "Access Denied, Login is Required.")
 			return render(request, "payment/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
 
 
