@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-''' '''
+'''
 DATABASES = {
     'default': {
         # Development
@@ -96,7 +96,7 @@ DATABASES = {
         #'HOST': 'postgres.railway.internal',
         #'PORT': '5432',
     }
-}
+} '''
 # Aiven.io
 #DATABASES = {
   #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
