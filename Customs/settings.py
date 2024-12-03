@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'payment',
+    'whitenoise.runserver_nostatic',
     
 ]
 
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Customs.urls'
@@ -142,10 +144,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 STATICFILES_DIRS = [
     BASE_DIR / 'static/',  # This should point to the directory where your app-specific static files are located
 ]
+
+# Whitenoise static stuff
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
 
 #STATIC_ROOT = BASE_DIR / 'staticfiles'  # This is where collectstatic will collect all static files
 
