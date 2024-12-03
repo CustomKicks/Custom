@@ -7,6 +7,7 @@ from cart.cart import Cart
 from django.contrib.auth .models import User
 from store.models import Product, Profile
 import datetime
+from django.contrib.auth.decorators import login_required
 #
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
@@ -51,7 +52,7 @@ def checkout(request):
 		shipping_form = ShippingForm(request.POST or None)
 		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_form': shipping_form})
 '''
-
+@login_required(login_url='login')
 def billing_info(request):
 	if request.POST:
 
