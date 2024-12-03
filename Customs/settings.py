@@ -1,10 +1,12 @@
 from pathlib import Path
 import os
-
+from dotenv import load_dotenv 
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# Load Dotenv 
+load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -67,12 +69,42 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+''' '''
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # Development
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+
+        # Production
+        # Aivien
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'defaultdb',
+        #'USER': 'avnadmin',
+        #'PASSWORD': os.environ.get('what'),
+        #'HOST': 'customkicks-matidza46-4129.e.aivencloud.com',
+        #'PORT': '12695',
+
+        # Railway
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'railway',
+        #'USER': 'postgres',
+        #'PASSWORD': os.environ.get('DB_PASSWORD'),
+        #'HOST': 'postgres.railway.internal',
+        #'PORT': '5432',
     }
 }
+# Aiven.io
+#DATABASES = {
+  #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
+#}
+
+# Railway.app
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('POSTGRES_CONNECTION_STRING'), conn_max_age=600)
+}
+
+
 
 
 # Password validation
