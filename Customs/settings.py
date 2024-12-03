@@ -6,7 +6,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load Dotenv 
-load_dotenv()
+#load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-''' '''
+''' 
 DATABASES = {
     'default': {
         # Development
@@ -96,7 +96,7 @@ DATABASES = {
         #'HOST': 'postgres.railway.internal',
         #'PORT': '5432',
     }
-}
+}'''
 # Aiven.io
 #DATABASES = {
   #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
@@ -104,7 +104,7 @@ DATABASES = {
 
 # Railway.app
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('POSTGRES_CONNECTION_STRING'), conn_max_age=600)
+    'default': dj_database_url.parse(os.environ['POSTGRES_CONNECTION_STRING'], conn_max_age=600)
 }
 
 
