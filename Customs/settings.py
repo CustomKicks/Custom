@@ -16,8 +16,11 @@ SECRET_KEY = 'django-insecure-8%g&cru0)9l5)k89(!v&+%#s99o9o_3_m=d)l^9enu@rmzt)n2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['customkicks.onrender.com', 'https://customkicks.onrender.com'] 
+ALLOWED_HOSTS = []
+
+# Production
+#ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com']
+#CSRF_TRUSTED_ORIGINS = ['customkicks.onrender.com', 'https://customkicks.onrender.com'] 
 
 
 # Application definition
@@ -72,12 +75,12 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-''' 
+''' '''
 DATABASES = {
     'default': {
         # Development
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
         # Production
         # Aivien
@@ -96,17 +99,18 @@ DATABASES = {
         #'HOST': 'postgres.railway.internal',
         #'PORT': '5432',
     }
-}'''
+}
 # Aiven.io
 #DATABASES = {
   #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
 #}
 
 # Railway.app
+'''
 DATABASES = {
     'default': dj_database_url.parse(os.environ['POSTGRES_CONNECTION_STRING'], conn_max_age=600)
 }
-
+'''
 
 
 
