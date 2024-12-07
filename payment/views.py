@@ -17,7 +17,6 @@ import uuid # unique user id for duplictate orders
 
 
 
-#
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
 
