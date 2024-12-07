@@ -8,9 +8,19 @@ from django.contrib.auth .models import User
 from store.models import Product, Profile
 import datetime
 from django.contrib.auth.decorators import login_required
+
+# Import Some Paypal Stuff
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid # unique user id for duplictate orders
+
 #
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
+
+def payment_failed(request):
+	return render(request, "payment/payment_failed.html", {})
 
 
 
