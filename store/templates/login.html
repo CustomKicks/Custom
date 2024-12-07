@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!-- Header-->
- 
+<!-- Header--> 
     <header class="bg-dark py-5" style="background-image: url('{% static 'nike.webp' %}'); background-size: cover; background-position: center;" >
         <div class="container px-4 px-lg-5">
             <div class="text-center text-black">
@@ -11,14 +10,10 @@
             </div>
         </div>
     </header> 
-
-        <br><br>
-        
-    <div class="container  " >
-        
+        <br><br>   
+    <div class="container  " >    
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6 offset-md-3 px-4 px-lg-5 my-5 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-
                 <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="form-group">
@@ -39,11 +34,9 @@
                 <br>
                 <center>
                     Don't have an account? <a href="{% url 'register' %}">Create Account!</a>
-                </center>
-                
+                </center>          
             </div>	
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br>
-          
+    <br><br><br><br><br><br><br><br><br>    
 {% endblock %}
