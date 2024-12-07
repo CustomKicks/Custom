@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-
-        
+{% block content %}    
 <!-- Header-->
 <header class="bg-dark py-5" style="background-image: url('{% static 'b.webp' %}'); background-size: cover; background-position: center;">
     <div class="container px-4 px-lg-5 ">
@@ -14,14 +12,10 @@
         </div>
     </div>
 </header>
-
 <!-- Section-->
 <section class="py-5"><!---->
-    
-    <div class="container ">
-        
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            
+    <div class="container ">    
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">        
             {% for product in products %}
                 {% if product.is_sale %}
                    <div class="col mb-5">
@@ -58,8 +52,6 @@
                             </div>-->
                         </div>
                     </div>
-
-
                     {% else %}
                 <div class="col mb-5">
                         <div class="card h-100">
