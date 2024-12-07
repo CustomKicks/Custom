@@ -138,10 +138,7 @@ $(document).on('click', '.update-cart', function(e){
     error: function(xhr, errmsg, err){
 
     }
-
-
     });
-
 })
 
 // Delete Item From Cart
@@ -149,7 +146,6 @@ $(document).on('click', '.delete-product', function(e){
     e.preventDefault();
     // grab the product id
     //var productid = $(this).data('index');
-
     $.ajax({
     type: 'POST',
     url: '{% url 'cart_delete' %}',
@@ -165,15 +161,9 @@ $(document).on('click', '.delete-product', function(e){
     },
 
     error: function(xhr, errmsg, err){
-
     }
-
-
     });
 
 })
 </script>
-
 {% endblock %}
-
-
