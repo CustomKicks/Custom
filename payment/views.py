@@ -75,13 +75,32 @@ def billing_info(request):
 		my_shipping = request.POST 
 		request.session['my_session'] = my_shipping
 
+		# Get the host
+		"""  """
+		host = request.get_host()
+		# Create Paypal Form Dictionary
+		paypal_dict = {
+			'business': settings.PAYPAL_RECEIVER_EMAIL,
+			'amount': totals,
+			'item_name': 'Book Order',
+			'no_shipping': '2',
+			'invoice': str(uuid.uuid4()),
+			'currency_code': 'USD', # EUR for Euros
+			'notify_url': 'https://{}{}'.format(host, reverse("paypal-ipn")),
+			'return_url': 'https://{}{}'.format(host, reverse("payment_success")),
+			'cancel_return': 'https://{}{}'.format(host, reverse("payment_failed")),
+		}
+
+		# Create acutal paypal button
+		paypal_form = PayPalPaymentsForm(initial=paypal_dict)
+
 		# chect if user is loggedin
 		if request.user.is_authenticated:
 			billing_form = PaymentForm()
-			return render(request, "payment/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
+			return render(request, "payment/billing_info.html", {"paypal_form":paypal_form,"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
 		else:
 			billing_form = PaymentForm()
-			return render(request, "payment/billing_info.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
+			return render(request, "payment/billing_info.html", {"paypal_form":paypal_form,"cart_products":cart_products, "quantities":quantities, "totals":totals, 'shipping_info': request.POST, 'billing_form':billing_form})
 
 
 		shipping_form = request.POST
