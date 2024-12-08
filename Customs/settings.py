@@ -164,10 +164,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # Pappay Stuf
 # Sandbox
 
 PAYPAL_TEST = True
 PAYPAL_RECEIVER_EMAIL = 'customkicks.com'
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
