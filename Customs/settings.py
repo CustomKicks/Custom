@@ -1,17 +1,17 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load Dotenv 
-#load_dotenv()
+# Load Dotenv
+# load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8%g&cru0)9l5)k89(!v&+%#s99o9o_3_m=d)l^9enu@rmzt)n2'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -19,8 +19,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Production
-#ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com']
-#CSRF_TRUSTED_ORIGINS = ['customkicks.onrender.com', 'https://customkicks.onrender.com'] 
+# ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost']
+# CSRF_TRUSTED_ORIGINS = ['customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost']
 
 
 # Application definition
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'cart',
     'payment',
     'whitenoise.runserver_nostatic',
-    
+    'paypal.standard.ipn',
+
 ]
 
 MIDDLEWARE = [
@@ -84,26 +85,26 @@ DATABASES = {
 
         # Production
         # Aivien
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'defaultdb',
-        #'USER': 'avnadmin',
-        #'PASSWORD': os.environ.get('what'),
-        #'HOST': 'customkicks-matidza46-4129.e.aivencloud.com',
-        #'PORT': '12695',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'defaultdb',
+        # 'USER': 'avnadmin',
+        # 'PASSWORD': os.environ.get('what'),
+        # 'HOST': 'customkicks-matidza46-4129.e.aivencloud.com',
+        # 'PORT': '12695',
 
         # Railway
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'railway',
-        #'USER': 'postgres',
-        #'PASSWORD': os.environ.get('DB_PASSWORD'),
-        #'HOST': 'postgres.railway.internal',
-        #'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'railway',
+        # 'USER': 'postgres',
+        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
+        # 'HOST': 'postgres.railway.internal',
+        # 'PORT': '5432',
     }
 }
 # Aiven.io
-#DATABASES = {
-  #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
-#}
+# DATABASES = {
+#  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
+# }
 
 # Railway.app
 '''
@@ -111,7 +112,6 @@ DATABASES = {
     'default': dj_database_url.parse(os.environ['POSTGRES_CONNECTION_STRING'], conn_max_age=600)
 }
 '''
-
 
 
 # Password validation
@@ -150,7 +150,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static/',  # This should point to the directory where your app-specific static files are located
+    # This should point to the directory where your app-specific static files are located
+    BASE_DIR / 'static/',
 ]
 
 # Whitenoise static stuff
@@ -158,8 +159,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
-
-#STATIC_ROOT = BASE_DIR / 'staticfiles'  # This is where collectstatic will collect all static files
+# STATIC_ROOT = BASE_DIR / 'staticfiles'  # This is where collectstatic will collect all static files
 
 MEDIA_URL = '/media/'  # Also ensure this has the leading slash
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -168,3 +168,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Pappay Stuf
+# Sandbox
+
+PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = 'customkicks.com'
