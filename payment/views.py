@@ -85,7 +85,7 @@ def billing_info(request):
 			'item_name': 'Book Order',
 			'no_shipping': '2',
 			'invoice': str(uuid.uuid4()),
-			'currency_code': 'ZAR', # EUR for Euros
+			'currency_code': 'USD', # EUR for Euros
 			'notify_url': 'https://{}{}'.format(host, reverse("paypal-ipn")),
 			'return_url': 'https://{}{}'.format(host, reverse("payment_success")),
 			'cancel_return': 'https://{}{}'.format(host, reverse("payment_failed")),
