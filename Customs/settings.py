@@ -168,6 +168,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Sandbox
 
 PAYPAL_TEST = True
-PAYPAL_RECEIVER_EMAIL = 'customkicks.django@gmail.com'
+PAYPAL_RECEIVER_EMAIL = 'customkicks.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
