@@ -6,7 +6,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load Dotenv
-# load_dotenv()
+load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 DATABASES = {
     'default': {
         # Development
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
 
         # Production
         # Aivien
@@ -107,11 +107,11 @@ DATABASES = {
 # }
 
 # Railway.app
-'''
+''''''
 DATABASES = {
-    'default': dj_database_url.parse(os.environ['POSTGRES_CONNECTION_STRING'], conn_max_age=600)
+    'default': dj_database_url.parse(os.environ.get('POSTGRES_CONNECTION_STRING'), conn_max_age=600)
 }
-'''
+
 
 
 # Password validation
@@ -173,4 +173,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Sandbox
 
 PAYPAL_TEST = True
-PAYPAL_RECEIVER_EMAIL = 'customkicks.com'
+PAYPAL_RECEIVER_EMAIL = 'customkicks@gmail.com'
