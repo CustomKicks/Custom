@@ -16,11 +16,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 # Production
-# ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost']
-# CSRF_TRUSTED_ORIGINS = ['customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost', '1c1d-105-245-108-243.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://customkicks.onrender.com', 'https://customkicks.onrender.com', 'localhost', 'https://1c1d-105-245-108-243.ngrok-free.app']
 
 
 # Application definition
