@@ -10,7 +10,4 @@ def payment_notification(sender, **kwargs):
 
     print(ipn_obj)
     print(f'Amount Paid: {ipn_obj.gross}')
-    #if ipn_obj.payment_status == ST_COMPLETED: 
-        #if ipn_obj.receiver_email == settings.PAYPAL_RECEIVER_EMAIL: 
-          #  user = User.objects.get(email=ipn_obj.receiver_email) 
-          #  order = user.order_set.get(order_number=ipn_obj.custom)
+    
