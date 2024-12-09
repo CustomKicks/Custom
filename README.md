@@ -1,5 +1,5 @@
 ---
-## 🛍️ Custom Nike Air Force 1 E-Commerce Website
+## 🛍️ CustomKicks E-Commerce Website (https://customkicks.onrender.com/)
 
 An e-commerce platform built with **Django** and **PostgreSQL**, offering customers the ability to purchase **customized Nike Air Force 1 sneakers**. This site provides a seamless shopping experience, including **order management, secure payments**, and **shipment tracking** powered by **The Courier Guy API**.
 ---
