@@ -192,7 +192,7 @@ def product(request, pk):
     product = Product.objects.get(id=pk)
     # pass the product to the product.html file to be viewed/shown
     #products = Product.objects.all()[:4]
-    products = Product.objects.order_by('?')[:4]
+    products = Product.objects.order_by('?')[:6]
     return render(request, 'product.html', {'product':product, 'products':products} )
 
 

@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'Customs.wsgi.application'
 DATABASES = {
     'default': {
         # Development
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
         # Production
         # Aivien
@@ -91,26 +91,19 @@ DATABASES = {
         # 'PASSWORD': os.environ.get('what'),
         # 'HOST': 'customkicks-matidza46-4129.e.aivencloud.com',
         # 'PORT': '12695',
-
-        # Railway
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'railway',
-        # 'USER': 'postgres',
-        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
-        # 'HOST': 'postgres.railway.internal',
-        # 'PORT': '5432',
     }
 }
+
 # Aiven.io
-# DATABASES = {
+#DATABASES = {
 #  'default': dj_database_url.parse(os.environ.get('Aiven'), conn_max_age=600)
-# }
+#}
 
 # Railway.app
-''''''
+'''
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('POSTGRES_CONNECTION_STRING'), conn_max_age=600)
-}
+}'''
 
 
 
